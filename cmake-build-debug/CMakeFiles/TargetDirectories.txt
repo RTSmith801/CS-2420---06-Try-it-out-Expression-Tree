@@ -1,0 +1,3 @@
+D:/Desktop/Weber State/06 Try it out - Expression Tree/cmake-build-debug/CMakeFiles/06_Try_it_out___Expression_Tree.dir
+D:/Desktop/Weber State/06 Try it out - Expression Tree/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Desktop/Weber State/06 Try it out - Expression Tree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
