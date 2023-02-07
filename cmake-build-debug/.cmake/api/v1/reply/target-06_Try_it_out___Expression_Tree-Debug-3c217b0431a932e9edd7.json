@@ -45,7 +45,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -fdiagnostics-color=always"
 				},
 				{
 					"fragment" : "-std=gnu++14"
@@ -55,7 +55,7 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "D:/Desktop/Weber State/06 Try it out - Expression Tree/."
+					"path" : "Z:/Desktop/Weber State Univesity/Classes/CS 2420/Assignments/06 Try-it-out- Expression-Tree/."
 				}
 			],
 			"language" : "CXX",
