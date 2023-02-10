@@ -41,6 +41,9 @@ int main() {
         out.str("");
         out.clear();
 	ExpressionTree *et = new ExpressionTree("(4+7)");
+//    cout << "user test start" << endl;
+//    et->printParseTreePostOrder(out);
+//    cout << "user test end" << endl;
 	et->printParseTreeInOrder(out);
         checkTest("Test 3", out.str(), "4+7");
         out.str("");
@@ -69,6 +72,8 @@ int main() {
         out.clear();
 	expression = "((2-5)-5)";
 	et->setExpression(expression);
+    std::cout << "User Test Here" << std::endl;
+    et->printParseTreeInOrder(cout);
 	et->printParseTreePostOrder(out);
         checkTest("Test 10", out.str(), "2 5 - 5 -");
         checkTest("Test 11", et->getResult(), -8);

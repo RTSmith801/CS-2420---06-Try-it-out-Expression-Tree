@@ -29,10 +29,13 @@ public:
     ~ExpressionTree();
     void setExpression(std::string expr); //Clears the expression tree and stores the given expression in a new tree
     int getResult(); //return the results of evaluating the expression tree
-    std::string printParseTreeInOrder(std::ostream&); //outputs the tree to the ostream& using an in-order traversal
-    std::string printParseTreePostOrder(std::ostream&); //outputs the tree to the ostream& using post-order traversal
+    void printParseTreeInOrder(std::ostream& out); //outputs the tree to the ostream& using an in-order traversal
+    //std::string printParseTreeInOrder(std::ostream&); //outputs the tree to the ostream& using an in-order traversal
+    //std::string printParseTreePostOrder(std::ostream&); //outputs the tree to the ostream& using post-order traversal
+    void printParseTreePostOrder(std::ostream& out); //outputs the tree to the ostream& using post-order traversal
 
-    bool isOperand(char ch); // function to check if operand
+//    bool isOperand(char ch); // function to check if operand
+    bool isOperand(std::string ch);
     bool isOperator(char ch); // function to check if operator
 
 protected:
@@ -45,7 +48,8 @@ private:
     void destroy(Node *curr);
     void setExpression(Node *curr);
     int getResult(Node *curr);
-    std::string printParseTreeInOrder(std::ostream &out, Node *curr);
+    std::string printParseTreeInOrder(Node *cur);
+    std::string printParseTreePostOrder(Node *curr);
 };
 
 //default constructor creates an empty expression tree
@@ -69,9 +73,12 @@ ExpressionTree::~ExpressionTree(){
 
 void ExpressionTree::destroy(Node *curr){
     if(curr != nullptr){
+
         destroy(curr->left);
+
         destroy(curr->right);
         delete curr;
+        curr = nullptr;
     }
 }
 
@@ -79,7 +86,9 @@ void ExpressionTree::destroy(Node *curr){
 void ExpressionTree::setExpression(std::string expr){
     //clears current expression tree, if it exists.
     if(root != nullptr){
+        //std::cout << std::endl << "Deleting: " << std::endl;
         destroy(root);
+        //std::cout << std::endl;
     }
 
     root = new Node;
@@ -88,9 +97,7 @@ void ExpressionTree::setExpression(std::string expr){
     root->right = nullptr;
     index = 0;
     this->expr = expr;
-
-    std::cout << "Expression is: " << expr << std::endl;
-
+    //std::cout << "Expression is: " << expr << std::endl;
     setExpression(root);
 }
 
@@ -106,14 +113,16 @@ void ExpressionTree::setExpression(Node *curr){
         //new node
         auto temp = new Node;
         curr->left = temp;
+        temp->left = nullptr;
+        temp->right = nullptr;
         index++;
         setExpression(curr->left);
     }
 
         ///if the character is a digit, continue reading from the string until you encounter a non-digit character. Each time concatenate the new digit character into a temporary string. Store that temp string in your currentNode data and then return.
-    else if(isOperand(expr[index])){
+    if(isdigit(expr[index])){
         std::string temp = "";
-        while(isOperand(expr[index])){
+        while(isdigit(expr[index])){
             temp += expr[index];
             index++;
         }
@@ -122,12 +131,14 @@ void ExpressionTree::setExpression(Node *curr){
     }
 
         ///If the character is an operator store the operator in the currentNode data, create a new node and place it on the right of your currentNode, move to the next character in the expression and recursively go right from the currentNode.
-    else if(isOperator(expr[index])){
+    if(isOperator(expr[index])){
         //assign operator to node
         curr->val = expr[index];
         //create new node
         auto temp = new Node;
         curr->right = temp;
+        temp->left = nullptr;
+        temp->right = nullptr;
         index++;
         setExpression(curr->right);
     }
@@ -139,7 +150,6 @@ void ExpressionTree::setExpression(Node *curr){
     }
 }
 
-
 //return the results of evaluating the expression tree
 int ExpressionTree::getResult()
 {
@@ -148,39 +158,115 @@ int ExpressionTree::getResult()
 
 int ExpressionTree::getResult(Node* curr)
 {
+    //If the node is null the result is 0.0
     if(curr == nullptr)
     {
         return 0;
     }
-    else
-    {
-        return 123;
+    //If the node is a number the result is that number
+    if(isOperand(curr->val)){
+        //stoi converts string to int
+        return stoi(curr->val);
+
     }
+    //If the node is an operator the result is the recursive result of the left subtree and right subtree combined using the given operator
+    if(isOperator(curr->val[0])){
+        if(curr->val[0] == '+'){
+            return getResult(curr->left) + getResult(curr->right);
+        }
+        else if(curr->val[0] == '-'){
+            return getResult(curr->left) - getResult(curr->right);
+        }
+        else if(curr->val[0] == '*'){
+            return getResult(curr->left) * getResult(curr->right);
+        }
+        else if(curr->val[0] == '/'){
+            return getResult(curr->left) / getResult(curr->right);
+        }
+        else if(curr->val[0] == '^'){
+            int left = getResult(curr->left);
+            int right = getResult(curr->right);
+            //return std::pow(left, right);
+            return 0;
+        }
+    }
+
+    return 0;
+
 }
 
 //outputs the tree to the ostream& using an in-order traversal
-std::string ExpressionTree::printParseTreeInOrder(std::ostream&){
-    return printParseTreeInOrder(std::cout, root);
+void ExpressionTree::printParseTreeInOrder(std::ostream& out){
+    //What am I using std::ostream& here for? Why isn't there a name for it such as "std::ostream& exampleText"?
+    out << printParseTreeInOrder(root);
 }
 
-std::string ExpressionTree::printParseTreeInOrder(std::ostream &out, Node *curr) {
-    return "";
+std::string ExpressionTree::printParseTreeInOrder(Node *curr) {
+    //if node exists
+    std::string toReturn = "";
+    if(curr) {
+        //if node->left, recurssive call.
+        if(curr->left){
+            toReturn += printParseTreeInOrder(curr->left);
+        }
+        //add value to string.
+        toReturn += curr->val;
+        //if node->right, recursive call.
+        if(curr->right){
+            toReturn += printParseTreeInOrder(curr->right);
+        }
+        return toReturn;
+    }
+    else{
+        //return nothing when finding an empty node.
+        return "";
+    }
+
 }
 
 //outputs the tree to the ostream& using post-order traversal
-std::string ExpressionTree::printParseTreePostOrder(std::ostream&){
-    return "";
+void ExpressionTree::printParseTreePostOrder(std::ostream& out){
+    out << printParseTreePostOrder(root);
+}
+
+std::string ExpressionTree::printParseTreePostOrder(Node *curr){
+    std::string toReturn = "";
+    if(curr){
+        if (curr->left){
+            toReturn += printParseTreePostOrder(curr->left);
+            toReturn += " " ;
+        }
+        if (curr->right){
+            toReturn += printParseTreePostOrder(curr->right);
+            toReturn += " ";
+        }
+        toReturn += curr->val;
+        return toReturn;
+    }
+    else{
+        //return nothing when finding an empty node.
+        return "";
+    }
 }
 
 // function to check if operand
-bool ExpressionTree::isOperand(char ch)
+bool ExpressionTree::isOperand(std::string ch)
 {
-    return ch >= '0' && ch <= '9' || ch>='A' && ch<='Z' || ch>='a' && ch<='z';
+    //std::cout << "Val to compare " << ch << " isOperand?  " ;
+    if(ch[0] >= '0' && ch[0] <= '9'){
+        //std::cout << "true" << std::endl;
+        return true;
+    }
+    else{
+        //std::cout << "false" << std::endl;
+        return false;
+    }
+    //return ch[0] >= '0' && ch[0] <= '9';
 }
 // function to check if operator
 bool ExpressionTree::isOperator(char ch)
 {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
 }
 
 #endif //INC_06_TRY_IT_OUT_EXPRESSION_TREE_EXPRESSIONTREE_H

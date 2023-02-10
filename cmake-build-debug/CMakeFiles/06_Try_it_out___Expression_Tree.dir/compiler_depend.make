@@ -135,6 +135,8 @@ CMakeFiles/06_Try_it_out___Expression_Tree.dir/ExpressionTreeTest.cpp.obj: Z:/De
   Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream.tcc \
   Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
   Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
+  Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cmath \
+  Z:/CLion\ 2022.3.2/bin/mingw/x86_64-w64-mingw32/include/math.h \
   Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
   Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc
 
@@ -323,6 +325,8 @@ Z:/CLion\ 2022.3.2/bin/mingw/x86_64-w64-mingw32/include/pthread_time.h:
 
 Z:/CLion\ 2022.3.2/bin/mingw/x86_64-w64-mingw32/include/pthread_compat.h:
 
+Z:/CLion\ 2022.3.2/bin/mingw/x86_64-w64-mingw32/include/math.h:
+
 Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_ios.h:
 
 Z:/CLion\ 2022.3.2/bin/mingw/x86_64-w64-mingw32/include/pthread_unistd.h:
@@ -406,6 +410,8 @@ Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/
 Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream:
 
 Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc:
+
+Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cmath:
 
 Z:/CLion\ 2022.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream:
 
