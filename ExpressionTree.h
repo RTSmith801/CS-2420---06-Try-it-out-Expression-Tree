@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 
 struct Node{
     std::string val;
@@ -97,12 +98,17 @@ void ExpressionTree::setExpression(std::string expr){
     root->right = nullptr;
     index = 0;
     this->expr = expr;
-    //std::cout << "Expression is: " << expr << std::endl;
+    std::cout << "Expression to set is: " << expr << std::endl;
     setExpression(root);
+    std::cout << "Expression has been set to: ";
+    printParseTreeInOrder(std::cout);
+    std::cout << std::endl;
 }
 
 //recursive method to assist with creation of nodes.
 void ExpressionTree::setExpression(Node *curr){
+    std::cout << "Adding expr[" << index << "]->val = " << expr[index] << std::endl;
+
     ///If the current position is less than 0 or greater than the size of the string then return
     if(index < 0 || index > expr.size()){
         return;
@@ -132,6 +138,7 @@ void ExpressionTree::setExpression(Node *curr){
 
         ///If the character is an operator store the operator in the currentNode data, create a new node and place it on the right of your currentNode, move to the next character in the expression and recursively go right from the currentNode.
     if(isOperator(expr[index])){
+        std::cout << "Adding expr[" << index << "]->val = " << expr[index] << std::endl;
         //assign operator to node
         curr->val = expr[index];
         //create new node
@@ -144,7 +151,8 @@ void ExpressionTree::setExpression(Node *curr){
     }
 
         ///if the character is a ')', just return.
-    else if(expr[index] == ')'){
+    if(expr[index] == ')'){
+        std::cout << "Adding expr[" << index << "]->val = " << expr[index] << std::endl;
         index++;
         return;
     }
@@ -186,8 +194,8 @@ int ExpressionTree::getResult(Node* curr)
         else if(curr->val[0] == '^'){
             int left = getResult(curr->left);
             int right = getResult(curr->right);
-            //return std::pow(left, right);
-            return 0;
+            return std::pow(left, right);
+            //return 0;
         }
     }
 
@@ -230,6 +238,7 @@ void ExpressionTree::printParseTreePostOrder(std::ostream& out){
 }
 
 std::string ExpressionTree::printParseTreePostOrder(Node *curr){
+    //std::cout << "Expression is: " << expr << std::endl;
     std::string toReturn = "";
     if(curr){
         if (curr->left){

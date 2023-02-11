@@ -72,9 +72,8 @@ int main() {
         out.clear();
 	expression = "((2-5)-5)";
 	et->setExpression(expression);
-    std::cout << "User Test Here" << std::endl;
-    et->printParseTreeInOrder(cout);
 	et->printParseTreePostOrder(out);
+
         checkTest("Test 10", out.str(), "2 5 - 5 -");
         checkTest("Test 11", et->getResult(), -8);
 	
