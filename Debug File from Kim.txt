@@ -1,9 +1,5 @@
 /**
- * @file: ExpressionTree.h
- * @assignment_name: 06: Try it out: Expression Tree
- * @author: Rick Smith (rickysmith@mail.weber.edu)
- * @date: 02/04/2023
- * @brief: Implementing a BinaryTree to store math expressions.
+ * debug file sent from Kim
  *
  */
 
@@ -16,8 +12,8 @@
 
 struct Node{
     std::string val;
-    Node  *left;
-    Node *right;
+    Node  *left = nullptr;
+    Node *right = nullptr;
 };
 
 //template <class Type>
@@ -26,9 +22,10 @@ class ExpressionTree{
 public:
 
     ExpressionTree(); //default constructor creates an empty expression tree
-    ExpressionTree(const ExpressionTree & tree){
-        root = copyTree(tree.root);
+   ExpressionTree(const ExpressionTree & tree){
+      root = copyTree(tree.root);
     }
+
     Node * copyTree(Node * curr){
         if(!curr){
             return nullptr;
@@ -98,11 +95,11 @@ ExpressionTree::~ExpressionTree(){
 void ExpressionTree::destroy(Node *curr){
     if(curr != nullptr){
 
-        destroy(curr->left);
+       destroy(curr->left);
 
-        destroy(curr->right);
-        delete curr;
-        curr = nullptr;
+       destroy(curr->right);
+       delete curr;
+       curr = nullptr;
     }
 }
 
@@ -252,7 +249,7 @@ std::string ExpressionTree::printParseTreeInOrder(Node *curr) {
         //return nothing when finding an empty node.
         return "";
     }
-
+    return "";
 }
 
 //outputs the tree to the ostream& using post-order traversal
@@ -279,6 +276,7 @@ std::string ExpressionTree::printParseTreePostOrder(Node *curr){
         //return nothing when finding an empty node.
         return "";
     }
+    return "";                                                      //added default return
 }
 
 // function to check if operand
